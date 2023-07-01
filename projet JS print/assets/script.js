@@ -30,11 +30,13 @@ console.log(texte);
 console.log(slides[slide].image);
 arrowLeft.addEventListener("click", () => {
   console.log("clickG");
+  clearInterval(intervalID);
+  intervalID = setInterval(slideCarousel, 3000);
   /* étape4 , changer les slide */
 
   slide--;
   if (slide < 0) {
-    slide = 4;
+    slide = slides.length;
     slide--;
   }
   img.src = `./assets/images/slideshow/${slides[slide].image}`;
@@ -44,9 +46,11 @@ arrowLeft.addEventListener("click", () => {
 });
 arrowRight.addEventListener("click", () => {
   console.log("clickD");
+  clearInterval(intervalID);
+  intervalID = setInterval(slideCarousel, 3000);
   /* étape 4 , changer les slides */
   slide++;
-  if (slide > 3) {
+  if (slide > slides.length - 1) {
     slide++;
     slide = 0;
   }
@@ -84,8 +88,7 @@ const changeDot = () => {
 };
 changeDot(); /*appelle de la fonction pour que le 1er dot soit affiché */
 console.log(bullet);
-
-setInterval(() => {
+function slideCarousel() {
   slide++;
   if (slide > 3) {
     slide++;
@@ -94,4 +97,5 @@ setInterval(() => {
   img.src = `./assets/images/slideshow/${slides[slide].image}`;
   texte.innerHTML = slides[slide].tagLine;
   changeDot();
-}, 5000);
+}
+let intervalID = setInterval(slideCarousel, 3000);
